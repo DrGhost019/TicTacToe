@@ -57,14 +57,34 @@ int main(int argc, char* argv[]) {
 
     if (!screenshotDir.empty()) {
         QDir().mkpath(QString::fromStdString(screenshotDir));
-        QTimer::singleShot(120, &window, [&window, &app, screenshotDir]() {
-            const QString dir = QString::fromStdString(screenshotDir);
+        const QString dir = QString::fromStdString(screenshotDir);
+
+        QTimer::singleShot(120, &window, [&window, &app, dir]() {
             window.grab().save(dir + "/setup_screen.png");
 
-            window.setupDemoState(ttt::Difficulty::Explosive, true);
-            QTimer::singleShot(150, &window, [&window, &app, dir]() {
+            // 1. Cyber Neon + Explosive Overdrive + AI Vision
+            window.setupDemoState(ttt::gui::ThemeId::CyberNeon, ttt::Difficulty::Explosive, true, false);
+            QTimer::singleShot(160, &window, [&window, &app, dir]() {
                 window.grab().save(dir + "/arena_explosive.png");
-                app.quit();
+
+                // 2. Cyber Neon Theme (Hard AI + Winning Laser Beam)
+                window.setupDemoState(ttt::gui::ThemeId::CyberNeon, ttt::Difficulty::Hard, false, true);
+                QTimer::singleShot(420, &window, [&window, &app, dir]() {
+                    window.grab().save(dir + "/theme_cyber_neon.png");
+
+                    // 3. Obsidian Gold Theme (Hard AI + AI Vision)
+                    window.setupDemoState(ttt::gui::ThemeId::ObsidianGold, ttt::Difficulty::Hard, true, false);
+                    QTimer::singleShot(180, &window, [&window, &app, dir]() {
+                        window.grab().save(dir + "/theme_obsidian_gold.png");
+
+                        // 4. Retro 2024 Terminal Tribute Theme (Medium AI + Winning Laser Beam)
+                        window.setupDemoState(ttt::gui::ThemeId::Retro2024, ttt::Difficulty::Medium, false, true);
+                        QTimer::singleShot(420, &window, [&window, &app, dir]() {
+                            window.grab().save(dir + "/theme_retro_2024.png");
+                            app.quit();
+                        });
+                    });
+                });
             });
         });
     }

@@ -23,7 +23,7 @@ public:
     explicit MainWindow(QWidget* parent = nullptr);
 
     // Helper used for automated visual inspection / screenshot verification.
-    void setupDemoState(ttt::Difficulty diff, bool showVision);
+    void setupDemoState(ThemeId themeId, ttt::Difficulty diff, bool showVision, bool showWin = false);
 
 protected:
     void keyPressEvent(QKeyEvent* event) override;

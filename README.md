@@ -13,9 +13,17 @@ A modern **2026 C++20 remaster** of one of the very first programs I ever wrote 
 
 ## Visual Showcase
 
+### Launch Studio & Explosive Overdrive
+
 | Launch & Match Setup (`Cyber Neon`) | Live Arena (`Explosive Overdrive` + `AI Vision`) |
 | :---: | :---: |
 | ![Setup Screen](docs/screenshots/setup_screen.png) | ![Explosive Arena](docs/screenshots/arena_explosive.png) |
+
+### Three Built-In Visual Themes
+
+| Cyber Neon *(2026 Default)* | Obsidian Gold *(Minimalist Luxury)* | Retro 2024 *(CRT Console Tribute)* |
+| :---: | :---: | :---: |
+| ![Cyber Neon Theme](docs/screenshots/theme_cyber_neon.png) | ![Obsidian Gold Theme](docs/screenshots/theme_obsidian_gold.png) | ![Retro 2024 Theme](docs/screenshots/theme_retro_2024.png) |
 
 ---
 

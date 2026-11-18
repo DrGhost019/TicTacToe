@@ -838,7 +838,9 @@ void MainWindow::keyPressEvent(QKeyEvent* event) {
     QMainWindow::keyPressEvent(event);
 }
 
-void MainWindow::setupDemoState(ttt::Difficulty diff, bool showVision) {
+void MainWindow::setupDemoState(ThemeId themeId, ttt::Difficulty diff, bool showVision, bool showWin) {
+    currentThemeId_ = themeId;
+    theme_ = makeTheme(currentThemeId_);
     selectedMode_ = ttt::GameMode::PlayerVsAI;
     selectedDifficulty_ = diff;
     selectedMark_ = ttt::Mark::X;
@@ -851,12 +853,25 @@ void MainWindow::setupDemoState(ttt::Difficulty diff, bool showVision) {
     cfg.player1Name = "Moein";
     cfg.player1Mark = ttt::Mark::X;
     session_.configure(cfg);
+    boardWidget_->clearAnimations();
 
-    // Play a realistic tactical sequence so the screenshot shows active moves & telemetry
-    (void)session_.applyMove(0); // X top-left
-    (void)session_.performAIMove(); // AI responds optimally (center)
-    (void)session_.applyMove(8); // X bottom-right
-    (void)session_.performAIMove(); // AI blocks / attacks
+    if (showWin) {
+        // Showcase a dramatic completed winning line with glowing laser beam & scoreboard update.
+        (void)session_.applyMove(0); // X top-left
+        (void)session_.applyMove(3); // O mid-left
+        (void)session_.applyMove(4); // X center
+        (void)session_.applyMove(5); // O mid-right
+        (void)session_.applyMove(8); // X bottom-right -> diagonal win!
+        if (const auto wl = session_.board().winningLine(); wl.has_value()) {
+            boardWidget_->triggerWinAnimation(*wl, ttt::Mark::X, false);
+        }
+    } else {
+        // Play a realistic tactical sequence so the screenshot shows active moves & telemetry.
+        (void)session_.applyMove(0);    // X top-left
+        (void)session_.performAIMove(); // AI responds
+        (void)session_.applyMove(8);    // X bottom-right
+        (void)session_.performAIMove(); // AI attacks/blocks
+    }
 
     stack_->setCurrentIndex(1);
     applyTheme();
