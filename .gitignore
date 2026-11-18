@@ -1,6 +1,10 @@
 # Prerequisites
 *.d
 
+# Build directories
+build/
+cmake-build-*/
+
 # Compiled Object files
 *.slo
 *.lo
@@ -22,11 +26,7 @@
 *.dylib
 *.dll
 
-# Fortran module files
-*.mod
-*.smod
-
-# Compiled Static libraries
+# Static libraries
 *.lai
 *.la
 *.a
@@ -36,6 +36,11 @@
 *.exe
 *.out
 *.app
+TicTacToe
+TicTacToe-cli
 
-# debug information files
+# Qt generated files
+moc_*.cpp
+
+# Debug information files
 *.dwo
